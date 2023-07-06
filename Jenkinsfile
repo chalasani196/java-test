@@ -1,9 +1,9 @@
 pipeline {
-    agent { label 'master'}
+    agent any
 
-    environment {
-        function_name = 'java-sample'
-    }
+   // environment {
+       // function_name = 'java-sample'
+   // }
 
     stages {
 
