@@ -9,29 +9,27 @@ pipeline {
                 sh 'mvn package'
             }
         }
-        
-         stage("sonar") {
-            agent any
+
+        stage('SonarQube analysis') {
             steps {
-              withSonarQubeEnv(installationName:'sonar', credentialsId:'sonar') {
-                sh 'mvn sonar:sonar -Dsonar.projectKey=chalasani1 -Dsonar.organization=chalasani1'
-              }
+                withSonarQubeEnv(installationName: 'sonar', credentialsId: 'sonar') {
+                    sh 'mvn sonar:sonar -Dsonar.projectKey=chalasani1 -Dsonar.organization=chalasani1'
+                }
             }
-          }
-        stage("Quality gate") {
-         steps { 
-            script{
-                try{
+        }
+
+        stage('Quality gate') {
+            steps {
                 timeout(time: 10, unit: 'MINUTES') {
-                    waitforQualityGate abortPipeline: true
-                }
-                }
-                catch(Exception ex){
-                    
+                    script {
+                        try {
+                            waitForQualityGate abortPipeline: true
+                        } catch (Exception ex) {
+                            // Handle any exceptions or errors here
+                        }
+                    }
                 }
             }
         }
     }
 }
-}
-            
