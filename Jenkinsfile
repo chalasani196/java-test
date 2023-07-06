@@ -23,7 +23,7 @@ pipeline {
             script{
                 try{
                 timeout(time: 10, unit: 'MINUTES') {
-                    waitforQualityGate abortpipeline: true
+                    waitforQualityGate abortPipeline: true
                 }
                 }
                 catch(Exception ex){
