@@ -14,7 +14,7 @@ pipeline {
             agent any
             steps {
               withSonarQubeEnv(installationName:'sonar', credentialsId:'sonar') {
-                sh 'mvn sonar:sonar -Dsonar.projectKey=chalasani1 -Dsonar.organization=chalasani1''
+                sh 'mvn sonar:sonar -Dsonar.projectKey=chalasani1 -Dsonar.organization=chalasani1'
               }
             }
           }
